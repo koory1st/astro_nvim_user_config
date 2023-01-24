@@ -22,18 +22,18 @@ return {
       require("rust-tools").setup()
     end,
   },
-  -- ['nacro90/numb.nvim'] = {
-  --   as = 'numb',
-  --   config = function()
-  --     require('numb').setup{
-  --       show_numbers = true, -- Enable 'number' for the window while peeking
-  --       show_cursorline = true, -- Enable 'cursorline' for the window while peeking
-  --       hide_relativenumbers = true, -- Enable turning off 'relativenumber' for the window while peeking
-  --       number_only = false, -- Peek only when the command is only a number instead of when it starts with a number
-  --       centered_peeking = true, -- Peeked line will be centered relative to window
-  --     }
-  --   end,
-  -- },
+  ['nacro90/numb.nvim'] = {
+    as = 'numb',
+    config = function()
+      require('numb').setup{
+        show_numbers = true, -- Enable 'number' for the window while peeking
+        show_cursorline = true, -- Enable 'cursorline' for the window while peeking
+        hide_relativenumbers = true, -- Enable turning off 'relativenumber' for the window while peeking
+        number_only = false, -- Peek only when the command is only a number instead of when it starts with a number
+        centered_peeking = true, -- Peeked line will be centered relative to window
+      }
+    end,
+  },
   ["folke/neodev.nvim"] = {
     as = 'neodev',
     config = function()
@@ -53,5 +53,26 @@ return {
         load_breakpoints_event = { "BufReadPost" }
       }
     end,
+  },
+  ['kevinhwang91/nvim-hlslens'] = {
+    as = 'hlslens',
+    config = function()
+      require('hlslens').setup()
+
+      local kopts = {noremap = true, silent = true}
+
+      vim.api.nvim_set_keymap('n', 'n',
+      [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]],
+      kopts)
+      vim.api.nvim_set_keymap('n', 'N',
+      [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]],
+      kopts)
+      vim.api.nvim_set_keymap('n', '*', [[*<Cmd>lua require('hlslens').start()<CR>]], kopts)
+      vim.api.nvim_set_keymap('n', '#', [[#<Cmd>lua require('hlslens').start()<CR>]], kopts)
+      vim.api.nvim_set_keymap('n', 'g*', [[g*<Cmd>lua require('hlslens').start()<CR>]], kopts)
+      vim.api.nvim_set_keymap('n', 'g#', [[g#<Cmd>lua require('hlslens').start()<CR>]], kopts)
+
+      vim.api.nvim_set_keymap('n', '<Leader>l', '<Cmd>noh<CR>', kopts)
+    end
   }
 }
